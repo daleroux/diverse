@@ -1,15 +1,8 @@
 ---
 - hosts: all
   become: true
-  vars:
-    gather_timeout: 20
 
   tasks:
-  - debug:
-      var: ansible_facts
-
-  - debug:
-      msg: ANSIBLE_GATHER_TIMEOUT {{ ANSIBLE_GATHER_TIMEOUT }}
 
   - name: Collect only facts returned by facter
     setup:
