@@ -1,7 +1,8 @@
 ---
 - hosts: all
   become: true
-  gather_timeout: 20
+  vars:
+    gather_timeout: 20
 
   tasks:
   - debug:
