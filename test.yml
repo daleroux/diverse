@@ -1,0 +1,9 @@
+---
+- hosts: demosystems
+  become: true
+
+  tasks:
+  - debug:
+      var: ansible_facts
+
+
