@@ -8,3 +8,9 @@
 
   - debug:
       msg: ANSIBLE_GATHER_TIMEOUT {{ ANSIBLE_GATHER_TIMEOUT }}
+
+  - name: Collect only facts returned by facter
+    setup:
+      gather_subset:
+        - all
+
