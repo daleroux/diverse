@@ -7,4 +7,4 @@
       var: ansible_facts
 
   - debug:
-      msg: ANSIBLE_GATHER_TIMEOUT: {{ ANSIBLE_GATHER_TIMEOUT }}
+      msg: ANSIBLE_GATHER_TIMEOUT {{ ANSIBLE_GATHER_TIMEOUT }}
