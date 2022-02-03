@@ -6,4 +6,5 @@
   - debug:
       var: ansible_facts
 
-
+  - debug:
+      var: {{ lookup('env', 'ANSIBLE_GATHER_TIMEOUT') }}"
