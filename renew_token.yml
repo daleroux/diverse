@@ -1,0 +1,11 @@
+---
+- name: Renew the controller token
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files:
+    vault.yml
+  tasks:
+    - name: Run the curl command to renew the TOKEN
+      ansible.builtin.shell:
+        cmd: curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token -d grant_type=refresh_token -d client_id="cloud-services" -d refresh_token="{{ user_token }}" --fail --silent --show-error --output /dev/null

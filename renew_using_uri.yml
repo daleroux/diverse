@@ -1,0 +1,26 @@
+---
+- name: Renew the controller token
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files: vault.yml
+  tasks:
+    - name: Obtain token via refresh_token
+      ansible.builtin.uri:
+        url: "https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token"
+        method: POST
+        body_format: form-urlencoded
+        body:
+          grant_type: "refresh_token"
+          client_id: "cloud-services"
+          refresh_token: "{{ user_token }}"
+        return_content: no # As we are outputting to /dev/null, we don't need to return content.
+        status_code: 200 # Ensuring it only passes if HTTP 200 OK is returned.
+        validate_certs: yes # Ensure this is yes to make HTTPS requests secure, unless you need to disable it.
+      register: response
+      ignore_errors: true # Mimics --fail, allowing the task to continue on HTTP error codes.
+
+    - name: Show error if any (mimic --show-error)
+      ansible.builtin.debug:
+        msg: "Failed to refresh token with error: {{ response }}"
+      when: response.failed
